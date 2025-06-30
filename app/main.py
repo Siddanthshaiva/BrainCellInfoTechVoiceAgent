@@ -69,8 +69,8 @@ async def vapi_webhook(req: Request):
                 "startedAt": payload['message']['call']['startedAt'],
                 "endedAt": payload['message']['call']['endedAt'],
                 "customerPhone": payload['message']['call']['customer']['number'], 
-                "recordingUrl": None,
-                "durationInSeconds": None,        
+                "callRecordingUrl": None,
+                "duration": None,        
                 "callAnalysis": {
                     "summary": FAILED_CALL_SUMMARY,
                     "successEvaluation": None
@@ -91,8 +91,8 @@ async def vapi_webhook(req: Request):
                 "startedAt": payload['message']['startedAt'],
                 "endedAt": payload['message']['endedAt'],
                 "customerPhone": payload['message']['call']['customer']['number'],   
-                "recordingUrl": payload['message']['artifact']['recordingUrl'],
-                "durationInSeconds": payload['message']['durationSeconds'],        
+                "callRecordingUrl": payload['message']['artifact']['recordingUrl'],
+                "duration": payload['message']['durationSeconds'],        
                 "callAnalysis": {
                     "summary": payload['message']['analysis']['summary'],
                     "successEvaluation": payload['message']['analysis']['successEvaluation']
