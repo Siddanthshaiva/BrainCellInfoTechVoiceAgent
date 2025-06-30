@@ -18,8 +18,13 @@ def send_brochure_email(recipient: str):
     if not recipient:
         raise ValueError("Recipient email is empty.")
 
-    if not os.path.exists(ATTACHMENT_PATH):
-        raise FileNotFoundError("brochure.pdf not found.")
+    try:
+        response = httpx.get(ATTACHMENT_PATH)
+        response.raise_for_status()
+    except Exception as e:
+        raise RuntimeError(f"Failed to download brochure: {e}")
+    file_data = response.content
+    file_name = ATTACHMENT_PATH.split("/")[-1]
 
     msg = EmailMessage()
     msg['Subject'] = EMAIL_SUBJECT
@@ -27,10 +32,10 @@ def send_brochure_email(recipient: str):
     msg['To'] = recipient
     msg.set_content("Hi there,\n\nPlease find attached the brochure you requested.\n\nBest regards,\nNotifier Team")
 
-    with open(ATTACHMENT_PATH, 'rb') as f:
-        file_data = f.read()
-        file_name = os.path.basename(ATTACHMENT_PATH)
-        msg.add_attachment(file_data, maintype='application', subtype='pdf', filename=file_name)
+    # with open(ATTACHMENT_PATH, 'rb') as f:
+    #     file_data = f.read()
+    #     file_name = os.path.basename(ATTACHMENT_PATH)
+    msg.add_attachment(file_data, maintype='application', subtype='pdf', filename=file_name)
 
     with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
         smtp.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
