@@ -1,7 +1,7 @@
 
 EMAIL_ADDRESS = 'notifier.tester12@gmail.com'
 EMAIL_PASSWORD = 'kery xsiu eouv kefo'
-ATTACHMENT_PATH = '/home/siddanth/VoiceGenie/brochure.pdf'
+ATTACHMENT_PATH = 'https://storage.googleapis.com/voice-agent-files/Subha%20Belgravia%20Brochure_.pdf'
 FIREBASE_ENDPOINT = "https://updatecallanalysis-4v4wa6c35a-el.a.run.app"
 END_OF_CALL_REPORT = 'end-of-call-report'
 CALL_STATUS_ENDED = 'ended'
